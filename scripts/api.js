@@ -1,21 +1,38 @@
-const loadDiscuss =async () =>{
-const res =  await fetch('https://openapi.programming-hero.com/api/retro-forum/posts');
-const data = await res.json();
-const discuss = data.posts
-displayDiscussion(discuss)
-// console.log(data.posts);
+
+const loadDiscuss = async (searchText) => {
+ 
+  const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${searchText}`);
+  const data = await res.json();
+  const discuss = data.posts
+  displayDiscussion(discuss)
+}
+const loadDiscuss1 = async () => {
+  const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts`);
+  const data = await res.json();
+  const discuss = data.posts
+  const spinner1 = document.getElementById('loading-spinner');
+  spinner1.classList.remove('hidden');
+  setTimeout(function () {
+    displayDiscussion(discuss);
+    spinner1.classList.add('hidden');
+  }, 2000);
+
+  
 }
 
-const displayDiscussion = discuss =>{
-    const discussContainer = document.getElementById('discuss-card-container');
-// console.log(discuss);
-discuss.forEach(card =>{
+const displayDiscussion = discuss => {
+
+  const discussContainer = document.getElementById('discuss-card-container');
+  discussContainer.textContent = '';
+  // console.log(discuss);
+  discuss.forEach(card => {
+
     // console.log(card);
     let isActive = '';
-    if(card.isActive){
-        isActive = `<span id="indicator" class="indicator-item badge badge-secondary bg-green-600 border-0"></span>` ;
-    }else{
-        isActive = `<span id="indicator" class="indicator-item badge badge-secondary bg-red-600 border-0"></span>` ;
+    if (card.isActive) {
+      isActive = `<span id="indicator" class="indicator-item badge badge-secondary bg-green-600 border-0"></span>`;
+    } else {
+      isActive = `<span id="indicator" class="indicator-item badge badge-secondary bg-red-600 border-0"></span>`;
     }
     const discussCard = document.createElement('div');
     discussCard.classList = `flex bg-[#F3F3F5] p-10 rounded-3xl gap-10 flex-col lg:flex-row mb-12 lg:mb-0`
@@ -62,19 +79,27 @@ ${isActive}
 
 </div>
 
-<button onclick="cheak('${card.title}, ${card.view_count}')">  
-<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
-<g clip-path="url(#clip0_57_425)">
-<path d="M13.9998 0C6.26805 0 9.15527e-05 6.26814 9.15527e-05 13.9999C9.15527e-05 21.7314 6.26805 28 13.9998 28C21.7315 28 27.9999 21.7314 27.9999 13.9999C27.9999 6.26814 21.7315 0 13.9998 0ZM14 4.91741L22.2847 10.0835H5.71542L14 4.91741ZM22.3879 18.333H22.3871C22.3871 19.1616 21.7155 19.8331 20.887 19.8331H7.1131C6.28447 19.8331 5.61303 19.1615 5.61303 18.333V10.4122C5.61303 10.3245 5.62199 10.2393 5.63655 10.1556L13.552 15.0914C13.5617 15.0975 13.5721 15.1016 13.5821 15.1072C13.5925 15.113 13.6032 15.1186 13.6138 15.1239C13.6697 15.1527 13.7273 15.176 13.7862 15.1912C13.7923 15.1929 13.7983 15.1936 13.8044 15.195C13.869 15.2102 13.9344 15.2197 13.9998 15.2197H14.0002C14.0007 15.2197 14.0012 15.2197 14.0012 15.2197C14.0665 15.2197 14.1319 15.2105 14.1965 15.195C14.2026 15.1935 14.2086 15.1929 14.2147 15.1912C14.2735 15.176 14.3309 15.1527 14.3871 15.1239C14.3977 15.1186 14.4084 15.113 14.4188 15.1072C14.4287 15.1016 14.4392 15.0975 14.4489 15.0914L22.3644 10.1556C22.3789 10.2393 22.3879 10.3244 22.3879 10.4122V18.333Z" fill="#10B981"/>
-</g>
-<defs>
-<clipPath id="clip0_57_425">
-<rect width="28" height="28" fill="white"/>
-</clipPath>
-</defs>
-</svg>
-
-</button>
+<button onclick="emailBtn(&quot;${card.title}&quot;, &quot;${card.view_count}&quot;)" class="target-btn">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="28"
+                      height="28"
+                      viewBox="0 0 28 28"
+                      fill="none"
+                    >
+                      <g clip-path="url(#clip0_57_425)">
+                        <path
+                          d="M13.9998 0C6.26805 0 9.15527e-05 6.26814 9.15527e-05 13.9999C9.15527e-05 21.7314 6.26805 28 13.9998 28C21.7315 28 27.9999 21.7314 27.9999 13.9999C27.9999 6.26814 21.7315 0 13.9998 0ZM14 4.91741L22.2847 10.0835H5.71542L14 4.91741ZM22.3879 18.333H22.3871C22.3871 19.1616 21.7155 19.8331 20.887 19.8331H7.1131C6.28447 19.8331 5.61303 19.1615 5.61303 18.333V10.4122C5.61303 10.3245 5.62199 10.2393 5.63655 10.1556L13.552 15.0914C13.5617 15.0975 13.5721 15.1016 13.5821 15.1072C13.5925 15.113 13.6032 15.1186 13.6138 15.1239C13.6697 15.1527 13.7273 15.176 13.7862 15.1912C13.7923 15.1929 13.7983 15.1936 13.8044 15.195C13.869 15.2102 13.9344 15.2197 13.9998 15.2197H14.0002C14.0007 15.2197 14.0012 15.2197 14.0012 15.2197C14.0665 15.2197 14.1319 15.2105 14.1965 15.195C14.2026 15.1935 14.2086 15.1929 14.2147 15.1912C14.2735 15.176 14.3309 15.1527 14.3871 15.1239C14.3977 15.1186 14.4084 15.113 14.4188 15.1072C14.4287 15.1016 14.4392 15.0975 14.4489 15.0914L22.3644 10.1556C22.3789 10.2393 22.3879 10.3244 22.3879 10.4122V18.333Z"
+                          fill="#10B981"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_57_425">
+                          <rect width="28" height="28" fill="white" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </button>
 
 </div>
   </div>
@@ -82,63 +107,159 @@ ${isActive}
 </div>
  `;
     discussContainer.appendChild(discussCard);
-})
+  })
+
+  // hide loading indicator
+  toggleLoadingSpinner(false);
+
+}
+
+// email btn
+let readCount = 0;
+
+const emailBtn = (title, view_count) => {
+  readCount++;
+  const postViewContainer = document.getElementById("email-textarea");
+  const readPost = document.createElement('div');
+  readPost.innerHTML = `
+              <div class="flex w-full justify-between p-4 bg-[#FFFFFF] rounded-2xl">
+                <h5 class="text-xl text-[#12132D] font-bold">${title}</h5>
+                <div class="flex gap-x-2 text-base items-center">
+                  <span><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="28"
+                        height="28"
+                        viewBox="0 0 28 28"
+                        fill="none"
+                      >
+                        <path
+                          d="M11.6667 14C11.6667 14.6188 11.9125 15.2123 12.3501 15.6499C12.7877 16.0875 13.3812 16.3333 14 16.3333C14.6188 16.3333 15.2123 16.0875 15.6499 15.6499C16.0875 15.2123 16.3333 14.6188 16.3333 14C16.3333 13.3812 16.0875 12.7877 15.6499 12.3501C15.2123 11.9125 14.6188 11.6667 14 11.6667C13.3812 11.6667 12.7877 11.9125 12.3501 12.3501C11.9125 12.7877 11.6667 13.3812 11.6667 14Z"
+                          stroke="#12132D"
+                          stroke-opacity="0.6"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M24.5 14C21.7 18.6667 18.2 21 14 21C9.8 21 6.3 18.6667 3.5 14C6.3 9.33333 9.8 7 14 7C18.2 7 21.7 9.33333 24.5 14Z"
+                          stroke="#12132D"
+                          stroke-opacity="0.6"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg></span>
+                  <p class="font-inter text-base text-[#12132d99]">${view_count}</p>
+                </div>
+              </div>
+    `;
+  postViewContainer.appendChild(readPost);
+  const readMessageNumber = document.getElementById("read-number");
+  readMessageNumber.innerText = readCount;
+
+}
+
+
+// appy button
+
+const handleSearch = () => {
+
+    toggleLoadingSpinner(true);
+const searchField = document.getElementById('input-field');
+const searchText = searchField.value;
+// console.log(searchText);
+
+loadDiscuss(searchText)
 
 
 }
 
-const cheak = (text) => {
+// const handleSearch = () => {
 
-    const field = document.getElementById('email-textarea').textContent;
+//   const spinnerLoader = document.getElementById("loading-spinner");
+//   spinnerLoader.classList.remove('hidden');
+//   setTimeout(function () {
+//     spinnerLoader.classList.add("hidden");
+
+//   }, 2000);
+
+//   toggleLoadingSpinner(true);
+
+//   const searchField = document.getElementById("input-field");
+//   const searchText = searchField.value;
+
+//   loadDiscuss(searchText);
+
+// }
+
+// loader
+const toggleLoadingSpinner = (isLoading) => {
+  const loadingSpinner = document.getElementById('loading-spinner');
 
 
 
-console.log(text);
+  if (isLoading) {
+    loadingSpinner.classList.remove('hidden');
+  }
+  else {
+    loadingSpinner.classList.add('hidden');
+  }
+
 }
 
+const loadPost = async () => {
+  const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/latest-posts`)
+  const data = await res.json();
 
-const loadPost =async () => {
-const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/latest-posts`)
-const data = await res.json();
+  const spinner2 = document.getElementById('loading-spinner2');
+  spinner2.classList.remove('hidden');
+  setTimeout(function () {
+    displayPost(data);
+    spinner2.classList.add('hidden');
+  }, 2000);
 
-const postContainer = document.getElementById('card-container');
+
+}
+const displayPost = data => {
+const cardContainer = document.getElementById('card-container');
+
 data.forEach(card => {
 
-    let isdate = '';
-if(card.author.posted_date){
+  let isdate = '';
+  if (card.author.posted_date) {
     isdate = card.author.posted_date;
-}else{
+  } else {
     isdate = 'No Publish Date'
-}
-    let designation = '';
-if(card.author.designation){
+  }
+  let designation = '';
+  if (card.author.designation) {
     designation = card.author.designation;
-}else{
+  } else {
     designation = 'Unknown'
-}
+  }
 
-    const postCard = document.createElement('div');
+  const postCard = document.createElement('div');
 
-postCard.innerHTML = `<div class="space-y-4 p-4 border-[1px] border-solid border-[#12132d26] rounded-3xl">
+  postCard.innerHTML = `<div class="space-y-4 p-4 border-[1px] border-solid border-[#12132d26] rounded-3xl">
 
 <div>
-  <img class="rounded-3xl" src="${card.cover_image}" alt="">
+<img class="rounded-3xl" src="${card.cover_image}" alt="">
 </div>
 
 <div class="flex items-center gap-4">
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-  <g clip-path="url(#clip0_29_1881)">
-    <path d="M4 7C4 6.46957 4.21071 5.96086 4.58579 5.58579C4.96086 5.21071 5.46957 5 6 5H18C18.5304 5 19.0391 5.21071 19.4142 5.58579C19.7893 5.96086 20 6.46957 20 7V19C20 19.5304 19.7893 20.0391 19.4142 20.4142C19.0391 20.7893 18.5304 21 18 21H6C5.46957 21 4.96086 20.7893 4.58579 20.4142C4.21071 20.0391 4 19.5304 4 19V7Z" stroke="#12132D" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M16 3V7" stroke="#12132D" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M8 3V7" stroke="#12132D" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M4 11H20" stroke="#12132D" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M11 16C11 16.2652 11.1054 16.5196 11.2929 16.7071C11.4804 16.8946 11.7348 17 12 17C12.2652 17 12.5196 16.8946 12.7071 16.7071C12.8946 16.5196 13 16.2652 13 16C13 15.7348 12.8946 15.4804 12.7071 15.2929C12.5196 15.1054 12.2652 15 12 15C11.7348 15 11.4804 15.1054 11.2929 15.2929C11.1054 15.4804 11 15.7348 11 16Z" stroke="#12132D" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  </g>
-  <defs>
-    <clipPath id="clip0_29_1881">
-      <rect width="24" height="24" fill="white"/>
-    </clipPath>
-  </defs>
+<g clip-path="url(#clip0_29_1881)">
+  <path d="M4 7C4 6.46957 4.21071 5.96086 4.58579 5.58579C4.96086 5.21071 5.46957 5 6 5H18C18.5304 5 19.0391 5.21071 19.4142 5.58579C19.7893 5.96086 20 6.46957 20 7V19C20 19.5304 19.7893 20.0391 19.4142 20.4142C19.0391 20.7893 18.5304 21 18 21H6C5.46957 21 4.96086 20.7893 4.58579 20.4142C4.21071 20.0391 4 19.5304 4 19V7Z" stroke="#12132D" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M16 3V7" stroke="#12132D" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M8 3V7" stroke="#12132D" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M4 11H20" stroke="#12132D" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M11 16C11 16.2652 11.1054 16.5196 11.2929 16.7071C11.4804 16.8946 11.7348 17 12 17C12.2652 17 12.5196 16.8946 12.7071 16.7071C12.8946 16.5196 13 16.2652 13 16C13 15.7348 12.8946 15.4804 12.7071 15.2929C12.5196 15.1054 12.2652 15 12 15C11.7348 15 11.4804 15.1054 11.2929 15.2929C11.1054 15.4804 11 15.7348 11 16Z" stroke="#12132D" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+  <clipPath id="clip0_29_1881">
+    <rect width="24" height="24" fill="white"/>
+  </clipPath>
+</defs>
 </svg>
 <p class="text-[#12132d99] text-base">${isdate}</p>
 </div>
@@ -147,7 +268,7 @@ postCard.innerHTML = `<div class="space-y-4 p-4 border-[1px] border-solid border
 
 <div class="flex gap-4">
 <div class="w-[44px] rounded-xl">
-  <img class="rounded-3xl" src="${card.profile_image}" alt="">
+<img class="rounded-3xl" src="${card.profile_image}" alt="">
 </div>
 <div>
 
@@ -160,20 +281,11 @@ postCard.innerHTML = `<div class="space-y-4 p-4 border-[1px] border-solid border
 </div>`;
 
 
-postContainer.appendChild(postCard);
-
-// if(card.author.designation){
-//     card.author.designation
-// }else{
-//     card.author.designation?card.author.designation:'unknown'
-// }
-
-// card.author.designation?card.author.designation:'unknown'
-// console.log(card.author.posted_date?card.author.posted_date:'No Publish Date');
-}
-    )
+  cardContainer.appendChild(postCard);
 
 }
+)
+}
 
-loadDiscuss();
+loadDiscuss1()
 loadPost();

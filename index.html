@@ -84,7 +84,7 @@
         
         <div id="cuponContainer" class="relative rounded-3xl">
             <input id="input-field" class="input w-full input-bordered rounded-3xl join-item text-[#03071266] text-sm" placeholder="Search here anything"/>
-            <button id="apply-btn" class="btn text-white bg-[#797DFC] text-lg font-bold absolute right-1 rounded-3xl px-6">Search</button>
+            <button onclick="handleSearch()" id="apply-btn" class="btn text-white bg-[#797DFC] text-lg font-bold absolute right-1 rounded-3xl px-6">Search</button>
           </div>
 
         </div>
@@ -143,43 +143,64 @@
 
 </div>
 
+<div id="loading-spinner" class="text-center my-40 hidden">
+  <span class="loading loading-spinner loading-xs"></span>
+<span class="loading loading-spinner loading-sm"></span>
+<span class="loading loading-spinner loading-md"></span>
+<span class="loading loading-spinner loading-lg"></span>
+</div>
 <div id="discuss-container" class="flex justify-between gap-6 flex-col lg:flex-row">
 
+
+
     <!-- left side -->
-<div id="discuss-card-container" class=" lg:w-[73%] flex flex-col gap-6">
+
+<div id="discuss-card-container" class=" lg:w-[70%] flex flex-col gap-6">
+    <!-- loading -->
 
 </div>
 
     <!--  mark as read side -->
-<div class="flex justify-between bg-[#12132d0d] h-96 max-h-auto gap-32 p-6 rounded-3xl">
+<div class="w-[374px]">
 
-    <div>
-        <h4 class="text-xl text-[#12132D] font-bold">
-            Title
-        </h4>
+  <div class="bg-[#12132d0d] w-full  gap-32 p-6 rounded-3xl">
+
+    <div class="flex justify-between ">
+
+      <div>
+          <h4 class="text-xl text-[#12132D] font-bold">
+              Title
+          </h4>
+      </div>
+  
+  <div class="flex gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <g clip-path="url(#clip0_30_2429)">
+            <path d="M7 12L12 17L22 7" stroke="#3DCE09" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 12L7 17M12 12L17 7" stroke="#3DCE09" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+          <defs>
+            <clipPath id="clip0_30_2429">
+              <rect width="24" height="24" fill="white"/>
+            </clipPath>
+          </defs>
+        </svg>
+  <p class="text-base text-[#12132d99] font-inter">Mark as read (<span id="read-number">0</span>)</p>
+  </div>
+  
+   
+  
+  </div>
+
+    <div id="email-textarea" class="flex pt-8 justify-between flex-col gap-5">
+
     </div>
 
-<div class="flex gap-2">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <g clip-path="url(#clip0_30_2429)">
-          <path d="M7 12L12 17L22 7" stroke="#3DCE09" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M2 12L7 17M12 12L17 7" stroke="#3DCE09" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </g>
-        <defs>
-          <clipPath id="clip0_30_2429">
-            <rect width="24" height="24" fill="white"/>
-          </clipPath>
-        </defs>
-      </svg>
-<p class="text-base text-[#12132d99] font-inter">Mark as read (<span>0</span>)</p>
+
+  </div>
 </div>
 
- 
 
-</div>
-<div id="email-textarea" class="flex pt-8 justify-between">
-
-</div>
 
 
 </div>
@@ -226,6 +247,12 @@
       </div>
 
       <!-- card -->
+      <div id="loading-spinner2" class="text-center my-40 hidden">
+        <span class="loading loading-spinner loading-xs"></span>
+      <span class="loading loading-spinner loading-sm"></span>
+      <span class="loading loading-spinner loading-md"></span>
+      <span class="loading loading-spinner loading-lg"></span>
+      </div>
       <div id="card-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
       </div>
