@@ -163,34 +163,22 @@ const emailBtn = (title, view_count) => {
 // appy button
 
 const handleSearch = () => {
+  toggleLoadingSpinner(true);
 
-    toggleLoadingSpinner(true);
-const searchField = document.getElementById('input-field');
-const searchText = searchField.value;
-// console.log(searchText);
+  const searchField = document.getElementById('input-field');
+  const searchText = searchField.value;
 
-loadDiscuss(searchText)
+  const spinnerLoader = document.getElementById("loading-spinner");
+  spinnerLoader.classList.remove('hidden');
 
+  setTimeout(function () {
+      spinnerLoader.classList.add("hidden");
+      loadDiscuss(searchText);
+  }, 2000);
 
 }
 
-// const handleSearch = () => {
 
-//   const spinnerLoader = document.getElementById("loading-spinner");
-//   spinnerLoader.classList.remove('hidden');
-//   setTimeout(function () {
-//     spinnerLoader.classList.add("hidden");
-
-//   }, 2000);
-
-//   toggleLoadingSpinner(true);
-
-//   const searchField = document.getElementById("input-field");
-//   const searchText = searchField.value;
-
-//   loadDiscuss(searchText);
-
-// }
 
 // loader
 const toggleLoadingSpinner = (isLoading) => {
