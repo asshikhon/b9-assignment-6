@@ -4,7 +4,6 @@ const data = await res.json();
 const discuss = data.posts
 displayDiscussion(discuss)
 // console.log(data.posts);
-
 }
 
 const displayDiscussion = discuss =>{
@@ -63,7 +62,7 @@ ${isActive}
 
 </div>
 
-<button class="email-btn">  
+<button onclick="cheak('${card.title}, ${card.view_count}')">  
 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
 <g clip-path="url(#clip0_57_425)">
 <path d="M13.9998 0C6.26805 0 9.15527e-05 6.26814 9.15527e-05 13.9999C9.15527e-05 21.7314 6.26805 28 13.9998 28C21.7315 28 27.9999 21.7314 27.9999 13.9999C27.9999 6.26814 21.7315 0 13.9998 0ZM14 4.91741L22.2847 10.0835H5.71542L14 4.91741ZM22.3879 18.333H22.3871C22.3871 19.1616 21.7155 19.8331 20.887 19.8331H7.1131C6.28447 19.8331 5.61303 19.1615 5.61303 18.333V10.4122C5.61303 10.3245 5.62199 10.2393 5.63655 10.1556L13.552 15.0914C13.5617 15.0975 13.5721 15.1016 13.5821 15.1072C13.5925 15.113 13.6032 15.1186 13.6138 15.1239C13.6697 15.1527 13.7273 15.176 13.7862 15.1912C13.7923 15.1929 13.7983 15.1936 13.8044 15.195C13.869 15.2102 13.9344 15.2197 13.9998 15.2197H14.0002C14.0007 15.2197 14.0012 15.2197 14.0012 15.2197C14.0665 15.2197 14.1319 15.2105 14.1965 15.195C14.2026 15.1935 14.2086 15.1929 14.2147 15.1912C14.2735 15.176 14.3309 15.1527 14.3871 15.1239C14.3977 15.1186 14.4084 15.113 14.4188 15.1072C14.4287 15.1016 14.4392 15.0975 14.4489 15.0914L22.3644 10.1556C22.3789 10.2393 22.3879 10.3244 22.3879 10.4122V18.333Z" fill="#10B981"/>
@@ -81,12 +80,100 @@ ${isActive}
   </div>
 
 </div>
-    
-    `;
-    discussContainer.appendChild(discussCard)
+ `;
+    discussContainer.appendChild(discussCard);
 })
 
 
 }
 
+const cheak = (text) => {
+
+    const field = document.getElementById('email-textarea').textContent;
+
+
+
+console.log(text);
+}
+
+
+const loadPost =async () => {
+const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/latest-posts`)
+const data = await res.json();
+
+const postContainer = document.getElementById('card-container');
+data.forEach(card => {
+
+    let isdate = '';
+if(card.author.posted_date){
+    isdate = card.author.posted_date;
+}else{
+    isdate = 'No Publish Date'
+}
+    let designation = '';
+if(card.author.designation){
+    designation = card.author.designation;
+}else{
+    designation = 'Unknown'
+}
+
+    const postCard = document.createElement('div');
+
+postCard.innerHTML = `<div class="space-y-4 p-4 border-[1px] border-solid border-[#12132d26] rounded-3xl">
+
+<div>
+  <img class="rounded-3xl" src="${card.cover_image}" alt="">
+</div>
+
+<div class="flex items-center gap-4">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+  <g clip-path="url(#clip0_29_1881)">
+    <path d="M4 7C4 6.46957 4.21071 5.96086 4.58579 5.58579C4.96086 5.21071 5.46957 5 6 5H18C18.5304 5 19.0391 5.21071 19.4142 5.58579C19.7893 5.96086 20 6.46957 20 7V19C20 19.5304 19.7893 20.0391 19.4142 20.4142C19.0391 20.7893 18.5304 21 18 21H6C5.46957 21 4.96086 20.7893 4.58579 20.4142C4.21071 20.0391 4 19.5304 4 19V7Z" stroke="#12132D" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M16 3V7" stroke="#12132D" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M8 3V7" stroke="#12132D" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M4 11H20" stroke="#12132D" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M11 16C11 16.2652 11.1054 16.5196 11.2929 16.7071C11.4804 16.8946 11.7348 17 12 17C12.2652 17 12.5196 16.8946 12.7071 16.7071C12.8946 16.5196 13 16.2652 13 16C13 15.7348 12.8946 15.4804 12.7071 15.2929C12.5196 15.1054 12.2652 15 12 15C11.7348 15 11.4804 15.1054 11.2929 15.2929C11.1054 15.4804 11 15.7348 11 16Z" stroke="#12132D" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <defs>
+    <clipPath id="clip0_29_1881">
+      <rect width="24" height="24" fill="white"/>
+    </clipPath>
+  </defs>
+</svg>
+<p class="text-[#12132d99] text-base">${isdate}</p>
+</div>
+<h5 class="text-lg text-[#12132D] font-extrabold">${card.title}</h5>
+<p class="text-base text-[#12132d99] ">${card.description}</p>
+
+<div class="flex gap-4">
+<div class="w-[44px] rounded-xl">
+  <img class="rounded-3xl" src="${card.profile_image}" alt="">
+</div>
+<div>
+
+<h6 class="text-base font-bold text-[#12132D]">${card.author.name}</h6>
+<p class="text-[#12132d99] text-sm">${designation}</p>
+</div>
+
+</div>
+
+</div>`;
+
+
+postContainer.appendChild(postCard);
+
+// if(card.author.designation){
+//     card.author.designation
+// }else{
+//     card.author.designation?card.author.designation:'unknown'
+// }
+
+// card.author.designation?card.author.designation:'unknown'
+// console.log(card.author.posted_date?card.author.posted_date:'No Publish Date');
+}
+    )
+
+}
+
 loadDiscuss();
+loadPost();
