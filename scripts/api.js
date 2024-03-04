@@ -77,7 +77,7 @@ ${isActive}
 
 </div>
 
-<button onclick="emailBtn(&quot;${card.title}&quot;, &quot;${card.view_count}&quot;)" class="target-btn">
+<button onclick="emailBtn(\`${card.title}\`, \`${card.view_count}\`)" class="target-btn">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="28"
