@@ -16,8 +16,6 @@ const loadDiscuss1 = async () => {
     displayDiscussion(discuss);
     spinner1.classList.add('hidden');
   }, 2000);
-
-  
 }
 
 const displayDiscussion = discuss => {
@@ -170,9 +168,12 @@ const handleSearch = () => {
 
   const spinnerLoader = document.getElementById("loading-spinner");
   spinnerLoader.classList.remove('hidden');
+  const discussContainer = document.getElementById('discuss-card-container');
+  discussContainer.classList.add('hidden');
 
   setTimeout(function () {
       spinnerLoader.classList.add("hidden");
+      discussContainer.classList.remove('hidden');
       loadDiscuss(searchText);
   }, 2000);
 
